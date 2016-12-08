@@ -4,6 +4,7 @@ import math
 import json
 import threading
 import picamera
+import time
 
 packet_size=3000
 
@@ -23,8 +24,10 @@ def publishEncodedImage():
     picId = "shady"
     pos = 0
     no_of_packets = math.ceil(length/packet_size)
+    time_send = int(time.time())
+
     while start <= len(encoded):
-        data = {"data": encoded[start:end], "pos": pos, "size": no_of_packets}
+        data = {"data": encoded[start:end], "pos": pos, "size": no_of_packets, "time":time_send}
         client.publish("aalto/image",json.JSONEncoder().encode(data))
         end += packet_size
         start += packet_size

@@ -2,6 +2,7 @@ import paho.mqtt.client as mqtt
 import json
 from PIL import Image
 import numpy as np
+import time
 
 imageString = []
 cnt = 0
@@ -22,9 +23,13 @@ def reConstructImage(data):
     imageString[data_decode['pos']] = data_decode['data']
     cnt += 1
     if cnt == data_decode['size']+1:
+        time_recv = int(time.time())
+
         imgData = ''.join(imageString)
         with open("imageToSave.jpg", "wb") as fh:
             fh.write(imgData.decode('base64'))
+        print "Time difference between sending and receiving"
+        print (time_recv - data_decode['time'])
         print "New image received"
         calculateHist()
         imageString = []
