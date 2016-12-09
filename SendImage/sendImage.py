@@ -16,6 +16,7 @@ def convertImageToBase64():
     return encoded
 
 def publishEncodedImage():
+    global packet_size
     print "Sending New Image"
     encoded = convertImageToBase64()
     end = packet_size
