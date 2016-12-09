@@ -6,7 +6,7 @@ import threading
 import picamera
 import time
 
-packet_size=3000
+packet_size=500
 
 camera = picamera.PiCamera()
 
@@ -25,13 +25,14 @@ def publishEncodedImage():
     pos = 0
     no_of_packets = math.ceil(length/packet_size)
     time_send = int(time.time())
-
+    print "Packet size:" + str(packet_size)
     while start <= len(encoded):
         data = {"data": encoded[start:end], "pos": pos, "size": no_of_packets, "time":time_send}
         client.publish("aalto/image",json.JSONEncoder().encode(data))
         end += packet_size
         start += packet_size
         pos = pos +1
+    packet_size += 500
 
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, flags, rc):
