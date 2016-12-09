@@ -12,11 +12,11 @@ ReceiveImage contains the code for receiving and decoding and Image and calculat
 To build both dockers go their directories one by one and do:
 `docker build -t <name_of_image> .`
 
-To run both SendImage do the below command on raspberrypi:
+To run SendImage do the below command on raspberrypi:
 
 `docker run --device /dev/vchiq -t <name_of_image>`
 
-To run both SendImage do the below command on raspberrypi:
+To run ReceiveImage do the below command on raspberrypi:
 
 `docker run -t <name_of_image>`
 
